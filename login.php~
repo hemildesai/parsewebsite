@@ -1,0 +1,38 @@
+<?php
+ 
+    // configuration
+    require 'includes/config.php'; 
+ 
+    // if form was submitted
+    if ($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+        // validate submission
+        if (empty($_POST["username"]))
+        {
+            apologize("You must provide your username.");
+        }
+        else if (empty($_POST["password"]))
+        {
+            apologize("You must provide your password.");
+        }
+ 
+        // query database for user
+         use Parse\ParseObject;
+ 
+        // if we found user, check password
+ 	try {
+	    $user = ParseUser::logIn("$_POST["username"]", "$_POST["password"]");
+  	    // Do stuff after successful login.
+     	} catch (ParseException $error) {
+  	  // The login failed. Check error to see why.
+          apologize("Invalid username and/or password.");
+	}
+    }
+    else
+    {
+        require 'templates/header.php';
+	require 'templates/loginform.php';
+	require 'templates/footer.php';
+    }
+ 
+?>

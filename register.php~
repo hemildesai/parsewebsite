@@ -1,0 +1,45 @@
+<?php
+ 
+    require("vendor/autoload.php");
+
+    if($_SERVER["REQUEST_METHOD"] == "POST")
+    {
+    
+        if(empty($_POST["username"]))
+        {
+            apologize("You must provide your username.");
+        }
+        else if (empty($_POST["password"]))
+        {
+            apologize("You must provide your password.");
+        }
+        else if($_POST["password"] != $_POST["confirmation"])
+        {
+            apologize("Your passwords do not match.");
+        }
+ 	use Parse\ParseObject; 
+        //$check =  query("INSERT INTO users (username, hash, cash) VALUES (?, ?, 10000.0000)", $_POST["username"], crypt($_POST["password"]));
+        $user = new ParseUser();
+$user->set("username", $_POST["username"]);
+$user->set("password", $_POST["password"]);
+$user->set("email", $_POST["email"]);
+ 
+// other fields can be set just like with ParseObject
+//$user->set("phone", "415-392-0202");
+ 
+	try {
+    	    $user->signUp();
+	    // Hooray! Let them use the app now.
+  	    } catch (ParseException $ex) {
+  	    // Show the error message somewhere and let the user try again.
+     	    echo "Error: " . $ex->getCode() . " " . $ex->getMessage();
+  	    }
+     }   
+    else
+    {
+        require 'templates/header.php';
+	require 'templates/registerform.php';
+	require 'templates/footer.php';
+    }
+?>
+ 

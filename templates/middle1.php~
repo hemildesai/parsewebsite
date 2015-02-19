@@ -1,0 +1,13 @@
+<div id="banner">
+					<header>
+						<p>
+							A place where you can buy and sell merchandise <strong>locally</strong></a>
+						</p>
+					</header>
+					</div>
+<div id="p1" style="text-align:center">
+ <ul class="nav nav-pills nav-justified">
+   <li class="button"><a href="buy.php">BUY</a></li>
+   <li class="button"><a href="sell.php">SELL</a></li>
+   </ul>
+</div>	
